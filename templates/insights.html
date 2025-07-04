@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>🤖 AI-Powered Financial Insights</h2>
+
+    <div class="summary">
+        <p><strong>Total Income:</strong> ₨{{ summary.total_income }}</p>
+        <p><strong>Total Expenses:</strong> ₨{{ summary.total_expenses }}</p>
+        <p><strong>Net Profit:</strong> ₨{{ summary.net_profit }}</p>
+    </div>
+
+    <hr>
+
+    <h3>💡 GPT-4 Suggestions</h3>
+    {% if insights %}
+        <pre style="white-space: pre-wrap; background: #f0f0f0; padding: 15px; border-left: 5px solid #4CAF50;">
+{{ insights }}
+        </pre>
+    {% else %}
+        <p>No insights available. Add some income and expense data first.</p>
+    {% endif %}
+</div>
+{% endblock %}

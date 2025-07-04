@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Freelancer Profit Analyzer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>💼 Freelancer Profit Analyzer</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a> |
+            <a href="{{ url_for('dashboard') }}">Dashboard</a> |
+            <a href="{{ url_for('goal') }}">Profit Goal</a> |
+            <a href="{{ url_for('project_profit') }}">Project Calculator</a> |
+            <a href="{{ url_for('insights') }}">AI Insights</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p style="text-align:center;">&copy; 2025 Zain | Built with Flask, GPT, and ❤️</p>
+    </footer>
+</body>
+</html>

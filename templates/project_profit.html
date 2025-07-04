@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>📦 Project Profitability Calculator</h2>
+
+    <form action="{{ url_for('project_profit') }}" method="POST">
+        <label>Project Price (₨):</label>
+        <input type="number" name="price" step="0.01" required><br><br>
+
+        <label>Hours Worked:</label>
+        <input type="number" name="hours" step="0.1" required><br><br>
+
+        <input type="submit" value="Calculate">
+    </form>
+
+    {% if result %}
+        <hr>
+        <h3>🧮 Results:</h3>
+        <p><strong>Project Price:</strong> ₨{{ result.price }}</p>
+        <p><strong>Hours Worked:</strong> {{ result.hours_worked }} hrs</p>
+        <p><strong>Effective Hourly Rate:</strong> ₨{{ result.hourly_rate }}</p>
+
+        {% if result.hourly_rate < 500 %}
+            <p style="color:red;"><strong>⚠️ Warning:</strong> This project may not be worth your time!</p>
+        {% elif result.hourly_rate > 1000 %}
+            <p style="color:green;"><strong>✅ Great Rate!</strong> This is a high-value project.</p>
+        {% else %}
+            <p><strong>🟡 Decent Rate.</strong> Consider optimizing time or raising price.</p>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

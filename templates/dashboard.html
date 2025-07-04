@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>📊 Dashboard Summary</h2>
+
+    <div class="summary">
+        <p><strong>Total Income:</strong> ₨{{ summary.total_income }}</p>
+        <p><strong>Total Platform Fees:</strong> ₨{{ summary.total_fees }}</p>
+        <p><strong>Tax Estimate ({{ summary.tax_rate }}%):</strong> ₨{{ summary.estimated_tax }}</p>
+        <p><strong>Total Expenses:</strong> ₨{{ summary.total_expenses }}</p>
+        <p><strong><span style="color: green;">Net Profit:</span></strong> ₨{{ summary.net_profit }}</p>
+    </div>
+
+    <a href="{{ url_for('export') }}" class="btn">📤 Export to Excel</a>
+
+    <hr>
+
+    <h3>💰 Income Entries</h3>
+    {% if income_data %}
+    <ul>
+        {% for entry in income_data %}
+        <li>{{ entry.platform }} — ₨{{ entry.amount }} {% if entry.note %}({{ entry.note }}){% endif %}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No income entries yet.</p>
+    {% endif %}
+
+    <h3>💸 Expense Entries</h3>
+    {% if expense_data %}
+    <ul>
+        {% for entry in expense_data %}
+        <li>{{ entry.category }} — ₨{{ entry.amount }} ({{ entry.description }})</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No expense entries yet.</p>
+    {% endif %}
+
+    <hr>
+
+    <h3>📈 Visual Charts</h3>
+    <canvas id="incomeChart" width="400" height="200"></canvas>
+    <br><br>
+    <canvas id="expenseChart" width="400" height="200"></canvas>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/chart-handler.js') }}"></script>
+<script>
+    const incomeData = {{ summary.income_chart_data|tojson }};
+    const expenseData = {{ summary.expense_chart_data|tojson }};
+
+    generateBarChart(
+        document.getElementById('incomeChart'),
+        Object.keys(incomeData),
+        Object.values(incomeData),
+        "Income by Platform"
+    );
+
+    generatePieChart(
+        document.getElementById('expenseChart'),
+        Object.keys(expenseData),
+        Object.values(expenseData)
+    );
+</script>
+{% endblock %}

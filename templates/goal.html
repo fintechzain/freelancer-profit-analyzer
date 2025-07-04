@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>🎯 Profit Goal Tracker</h2>
+
+    <form action="{{ url_for('goal') }}" method="POST">
+        <label>Set Your Monthly Profit Goal (₨):</label>
+        <input type="number" name="goal" value="{{ goal }}" step="0.01" required><br>
+        <input type="submit" value="Update Goal">
+    </form>
+
+    <hr>
+
+    <h3>📈 Progress</h3>
+    <p><strong>Current Net Profit:</strong> ₨{{ profit }}</p>
+    <p><strong>Goal:</strong> ₨{{ goal }}</p>
+
+    <div style="background: #ddd; border-radius: 5px; overflow: hidden; margin-top: 10px;">
+        <div style="width: {{ progress }}%; background: #4CAF50; color: white; padding: 10px 5px;">
+            {{ progress }}%
+        </div>
+    </div>
+</div>
+{% endblock %}

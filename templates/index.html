@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Add Income</h2>
+    <form action="{{ url_for('add_income') }}" method="post">
+        <label>Platform:</label>
+        <select name="platform" required>
+            <option value="Fiverr">Fiverr</option>
+            <option value="Upwork">Upwork</option>
+            <option value="Direct Client">Direct Client</option>
+        </select><br><br>
+
+        <label>Amount (₨):</label>
+        <input type="number" name="amount" step="0.01" required><br><br>
+
+        <label>Note (optional):</label>
+        <input type="text" name="note"><br><br>
+
+        <input type="submit" value="Add Income">
+    </form>
+
+    <hr>
+
+    <h2>Add Expense</h2>
+    <form action="{{ url_for('add_expense') }}" method="post">
+        <label>Category:</label>
+        <select name="category" required>
+            <option value="Software">Software</option>
+            <option value="Internet">Internet</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Tools">Tools</option>
+            <option value="Other">Other</option>
+        </select><br><br>
+
+        <label>Description:</label>
+        <input type="text" name="description" required><br><br>
+
+        <label>Amount (₨):</label>
+        <input type="number" name="amount" step="0.01" required><br><br>
+
+        <input type="submit" value="Add Expense">
+    </form>
+</div>
+{% endblock %}
